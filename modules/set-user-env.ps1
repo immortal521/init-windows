@@ -21,4 +21,4 @@ foreach ($key in $envVars.Keys) {
     Write-Host "已设置环境变量 $key = $value（当前会话 + 用户注册表）"
 }
 
-Write-Host "`n所有变量已设置完毕。"
+Write-Host "`所有变量已设置完毕。"

@@ -17,7 +17,7 @@ function Test-IsAdministrator {
     return $principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
 
-if (-not (Is-Administrator)) {
+if (-not (Test-IsAdministrator)) {
     Write-Warning "请以管理员权限运行此脚本以修改 hosts 文件。"
     exit 1
 }
