@@ -41,3 +41,5 @@ Write-Host "已备份原 hosts 文件到 $backupPath（自动覆盖旧备份）"
 Set-Content -Path $hostsPath -Value $hostsContentNew -Encoding ASCII
 
 Write-Host "hosts 文件已成功更新，GitHub 连接优化已生效。"
+
+Read-Host -Prompt "脚本执行完毕，按回车退出"
