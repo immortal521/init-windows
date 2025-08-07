@@ -1,4 +1,5 @@
-﻿# 获取当前用户名
+﻿Write-Host "设置用户环境变量..."
+# 获取当前用户名
 $username = [Environment]::UserName
 
 # 定义环境变量键值对
