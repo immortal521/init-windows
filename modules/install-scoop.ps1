@@ -1,0 +1,1 @@
+﻿Write-Host "运行安装scoop脚本..."

@@ -1,0 +1,1 @@
+﻿Write-Host "运行修改hosts脚本..."
