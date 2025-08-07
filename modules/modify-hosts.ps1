@@ -33,9 +33,9 @@ $hostsContentCleaned = [regex]::Replace($hostsContent, $pattern, "", [Text.Regul
 $hostsContentNew = $hostsContentCleaned + "`r`n`r`n" + $githubHosts
 
 # 备份原 hosts 文件
-$backupPath = "$hostsPath.bak_$(Get-Date -Format 'yyyyMMddHHmmss')"
+$backupPath = "$hostsPath.bak"
 Copy-Item -Path $hostsPath -Destination $backupPath -Force
-Write-Host "已备份原 hosts 文件到 $backupPath"
+Write-Host "已备份原 hosts 文件到 $backupPath（自动覆盖旧备份）"
 
 # 写入新内容
 Set-Content -Path $hostsPath -Value $hostsContentNew -Encoding ASCII
