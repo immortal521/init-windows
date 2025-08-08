@@ -133,25 +133,21 @@ foreach ($app in $appList) {
 
 $targetDir = "$env:USERPROFILE\.config"
 
-if (-Not (Test-Path $targetDir)) {
-    Write-Host "正在克隆配置仓库到 $targetDir ..."
-    git clone --recurse-submodules https://github.com/immortal521/config $targetDir
-} else {
-    Write-Host "$targetDir 已存在，跳过克隆。"
-}
+Write-Host "正在克隆配置仓库到 $targetDir ..."
+git clone --recurse-submodules https://github.com/immortal521/config $targetDir
 
-$home = $env:USERPROFILE
+$homeDir = $env:USERPROFILE
 
 $dirs = @(
-    @{ Name = "npm_global"; Path = Join-Path $home ".repo\npm\npm_global" },
-    @{ Name = "npm_cache"; Path = Join-Path $home ".repo\npm\npm_cache" },
-    @{ Name = "pnpm_global"; Path = Join-Path $home ".repo\pnpm\pnpm_global" },
-    @{ Name = "pnpm_bin"; Path = Join-Path $home ".repo\pnpm\pnpm_global\bin" },
-    @{ Name = "pnpm_cache"; Path = Join-Path $home ".repo\pnpm\pnpm_cache" },
-    @{ Name = "pnpm_store"; Path = Join-Path $home ".repo\pnpm\pnpm_store" },
-    @{ Name = "pnpm_state"; Path = Join-Path $home ".repo\pnpm\npm_state" },
-    @{ Name = "yarn_global"; Path = Join-Path $home ".repo\yarn\yarn_global" },
-    @{ Name = "yarn_cache"; Path = Join-Path $home ".repo\yarn\yarn_cache" }
+    @{ Name = "npm_global"; Path = Join-Path $homeDir ".repo\npm\npm_global" },
+    @{ Name = "npm_cache"; Path = Join-Path $homeDir ".repo\npm\npm_cache" },
+    @{ Name = "pnpm_global"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_global" },
+    @{ Name = "pnpm_bin"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_global\bin" },
+    @{ Name = "pnpm_cache"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_cache" },
+    @{ Name = "pnpm_store"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_store" },
+    @{ Name = "pnpm_state"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_state" },
+    @{ Name = "yarn_global"; Path = Join-Path $homeDir ".repo\yarn\yarn_global" },
+    @{ Name = "yarn_cache"; Path = Join-Path $homeDir ".repo\yarn\yarn_cache" }
 )
 
 foreach ($dir in $dirs) {
