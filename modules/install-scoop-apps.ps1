@@ -134,7 +134,7 @@ foreach ($app in $appList) {
 $targetDir = "$env:USERPROFILE\.config"
 
 Write-Host "正在克隆配置仓库到 $targetDir ..."
-"$env:SCOOP\shims\git.exe" clone --recurse-submodules https://github.com/immortal521/config $targetDir
+& "$env:SCOOP\apps\git\current\bin\git.exe" clone --recurse-submodules https://github.com/immortal521/config $targetDir
 
 $homeDir = $env:USERPROFILE
 
