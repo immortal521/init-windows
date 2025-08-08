@@ -134,46 +134,46 @@ foreach ($app in $appList) {
 $targetDir = "$env:USERPROFILE\.config"
 
 Write-Host "正在克隆配置仓库到 $targetDir ..."
-git clone --recurse-submodules https://github.com/immortal521/config $targetDir
+"$env:SCOOP\shims\git.exe" clone --recurse-submodules https://github.com/immortal521/config $targetDir
 
 $homeDir = $env:USERPROFILE
 
-$dirs = @(
-    @{ Name = "npm_global"; Path = Join-Path $homeDir ".repo\npm\npm_global" },
-    @{ Name = "npm_cache"; Path = Join-Path $homeDir ".repo\npm\npm_cache" },
-    @{ Name = "pnpm_global"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_global" },
-    @{ Name = "pnpm_bin"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_global\bin" },
-    @{ Name = "pnpm_cache"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_cache" },
-    @{ Name = "pnpm_store"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_store" },
-    @{ Name = "pnpm_state"; Path = Join-Path $homeDir ".repo\pnpm\pnpm_state" },
-    @{ Name = "yarn_global"; Path = Join-Path $homeDir ".repo\yarn\yarn_global" },
-    @{ Name = "yarn_cache"; Path = Join-Path $homeDir ".repo\yarn\yarn_cache" }
-)
-
-foreach ($dir in $dirs) {
-    if (-not (Test-Path $dir.Path)) {
-        Write-Host "创建目录 [$($dir.Name)] 路径： $($dir.Path)"
-        New-Item -ItemType Directory -Path $dir.Path | Out-Null
-    } else {
-        Write-Host "目录 [$($dir.Name)] 已存在，路径： $($dir.Path)"
-    }
-}
-
 # npm 相关路径变量
-$npmPrefix = $dirs | Where-Object { $_.Name -eq "npm_global" } | Select-Object -ExpandProperty Path
-$npmCache = $dirs | Where-Object { $_.Name -eq "npm_cache" } | Select-Object -ExpandProperty Path
+$npmGlobal = Join-Path $homeDir ".repo\npm\npm_global"
+$npmCache = Join-Path $homeDir ".repo\npm\npm_cache"
 
 # pnpm 相关路径变量
-$pnpmGlobal = $dirs | Where-Object { $_.Name -eq "pnpm_global" } | Select-Object -ExpandProperty Path
-$pnpmBin = $dirs | Where-Object { $_.Name -eq "pnpm_bin" } | Select-Object -ExpandProperty Path
-$pnpmCache = $dirs | Where-Object { $_.Name -eq "pnpm_cache" } | Select-Object -ExpandProperty Path
-$pnpmStore = $dirs | Where-Object { $_.Name -eq "pnpm_store" } | Select-Object -ExpandProperty Path
-$pnpmState = $dirs | Where-Object { $_.Name -eq "pnpm_state" } | Select-Object -ExpandProperty Path
+$pnpmGlobal = Join-Path $homeDir ".repo\pnpm\pnpm_global"
+$pnpmBin = Join-Path $homeDir ".repo\pnpm\pnpm_global\bin"
+$pnpmCache = Join-Path $homeDir ".repo\pnpm\pnpm_cache"
+$pnpmStore = Join-Path $homeDir ".repo\pnpm\pnpm_store"
+$pnpmState = Join-Path $homeDir ".repo\pnpm\pnpm_state"
 
 # yarn 相关路径变量
-$yarnGlobal = $dirs | Where-Object { $_.Name -eq "yarn_global" } | Select-Object -ExpandProperty Path
-$yarnCache = $dirs | Where-Object { $_.Name -eq "yarn_cache" } | Select-Object -ExpandProperty Path
+$yarnGlobal = Join-Path $homeDir ".repo\yarn\yarn_global"
+$yarnCache = Join-Path $homeDir ".repo\yarn\yarn_cache"
 
+# 将所有路径放入一个数组中，以便于循环创建目录
+$allPaths = @(
+    $npmGlobal,
+    $npmCache,
+    $pnpmGlobal,
+    $pnpmBin,
+    $pnpmCache,
+    $pnpmStore,
+    $pnpmState,
+    $yarnGlobal,
+    $yarnCache
+)
+
+foreach ($path in $allPaths) {
+    if (-not (Test-Path $path)) {
+        Write-Host "创建目录：$path"
+        New-Item -ItemType Directory -Path $path | Out-Null
+    } else {
+        Write-Host "目录已存在：$path"
+    }
+}
 Write-Host "配置 npm ..."
 npm config set registry https://registry.npmmirror.com/
 npm config set prefix $npmPrefix
