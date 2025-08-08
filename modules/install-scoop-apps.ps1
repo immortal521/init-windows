@@ -21,7 +21,6 @@ $scoopConfigs = @{
     "aria2-warning-enabled" = "false"
     "scoop_repo"            = "https://github.com/ScoopInstaller/Scoop"
     "scoop_branch"          = "master"
-    "proxy"                 = "localhost:10808"
 }
 
 foreach ($key in $scoopConfigs.Keys) {
