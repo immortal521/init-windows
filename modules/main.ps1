@@ -10,3 +10,7 @@ $setUserEnvScript = Join-Path $scriptDir "set-user-env.ps1"
 # 安装 scoop（普通权限即可）
 $installScoopScript = Join-Path $scriptDir "install-scoop.ps1"
 & $installScoopScript
+
+$installAppsScript = Join-Path $scriptDir "install-scoop-apps.ps1"
+& $installAppsScript
+
